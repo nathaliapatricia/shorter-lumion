@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+    </style>
+
+   <link rel="stylesheet" href="style.css">
+
+    </head>
+
+<body class="main">
+    <div class="logo"><img class="logo-img" src="assets/logo_lumion.png"></div>
+    <h1 class="title">Encurtador LUMION</h1>
+    <input class="inputHolder" type="text" id="urlInput" placeholder="Cole a URL aqui">
+    <input class="inputCustom" type="text" id="customCodeInput" placeholder="Modifique a URL (opcional)">
+    <button class="encurtarUrl" onclick="encurtar()">Encurtar</button>
+    <p id="resultado"></p>
+
+    <script class="resultado">
+        async function encurtar() {
+            const url = document.getElementById('urlInput').value;
+            const customCode = document.getElementById('customCodeInput').value;
+            const response = await fetch('/shorten', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: url, customCode: customCode })
+            });
+            const data = await response.json();
+            document.getElementById('resultado').innerHTML = 
+                `URL Encurtada: <a href="/${data.shortCode}">${data.shortCode}</a>`;
+        }
+    </script>
+</body>
+</html>
