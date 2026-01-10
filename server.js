@@ -8,6 +8,10 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static('.'));
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
+
 links["abc123"] = "https://google.com";
 links["xyz789"] = "https://youtube.com";
 
