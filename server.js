@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -6,7 +7,8 @@ const links = {};
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static('.'));
+app.use(express.static(path.join(__dirname, '.')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
