@@ -1,22 +1,20 @@
 const path = require('path');
 const express = require('express');
+const cors = require('cors'); // Certifique-se de que o cors está instalado no package.json
 const app = express();
-const cors = require('cors');
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const links = {};
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, '.')));
+
+// Serve arquivos estáticos da raiz e da pasta assets
+app.use(express.static(path.join(__dirname))); 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
-
-links["abc123"] = "https://google.com";
-links["xyz789"] = "https://youtube.com";
-
 
 const generateCode = len => {
     let code = ''
