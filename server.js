@@ -28,13 +28,18 @@ const generateCode = len => {
 console.log("Codigo gerado: ", generateCode(6));
 console.log("Outro codigo: ", generateCode(6));
 
-app.get('/:shortCode', (req,res) => { 
+app.get('/:shortCode', (req, res) => { 
     const shortCode = req.params.shortCode;
+
+    // SE TIVER PONTO (ex: .css, .png), É UM ARQUIVO, NÃO UM LINK. PARE AQUI.
+    if (shortCode.includes('.')) {
+        return next(); 
+    }
+
     const urlOriginal = links[shortCode];
     if (!urlOriginal) {
         return res.status(404).send('Link não encontrado! 😢');
     }
-    
     res.redirect(urlOriginal); 
 });
 
