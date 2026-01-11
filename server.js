@@ -7,8 +7,9 @@ const links = {};
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static(__dirname));
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
+app.use(express.static(path.join(process.cwd())));
+app.use('/assets', express.static(path.join(process.cwd(), 'assets')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
