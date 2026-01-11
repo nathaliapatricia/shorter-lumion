@@ -50,8 +50,12 @@ app.get('/:shortCode', (req, res) => {
     res.redirect(urlOriginal); 
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// Para desenvolvimento local
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
 
+// Para Vercel
 module.exports = app;
